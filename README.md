@@ -182,6 +182,13 @@ Root CA
 | Network | IP allowlist / VPN | Source network restriction |
 | Data | Query-only boundary | Vendor knowledge never leaves vendor infra |
 
+### Centralized gateway auth and rate limiting
+
+For deployments with many vendor MCP servers, see
+[`docs/kuadrant_authorino_mcp_gateway.md`](docs/kuadrant_authorino_mcp_gateway.md) for a
+Gateway API + Kuadrant pattern (the open-source basis for Red Hat OpenShift Connectivity Link)
+that centralizes authentication and rate limiting in front of the whole fleet.
+
 ## Concepts
 
 ### MCP Transports
