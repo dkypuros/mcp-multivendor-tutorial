@@ -11,3 +11,4 @@ certs/*.srl
 dist/
 .ai_conversations/
 CLAUDE.md
+.repos/
