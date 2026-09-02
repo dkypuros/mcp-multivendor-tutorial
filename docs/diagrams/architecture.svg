@@ -4,7 +4,7 @@
   <!-- Orchestrator box -->
   <rect x="20" y="110" width="200" height="80" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
   <text x="120" y="145" text-anchor="middle" font-size="15" font-weight="600" fill="#24292f">Orchestrator</text>
-  <text x="120" y="165" text-anchor="middle" font-size="13" fill="#57606a">(NOS / Copilot)</text>
+  <text x="120" y="165" text-anchor="middle" font-size="13" fill="#57606a">(Orchestration Platform)</text>
 
   <!-- Vendor A -->
   <rect x="500" y="30" width="200" height="60" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>

@@ -2,8 +2,9 @@
 Basic MCP Client Example (Python)
 
 Connects to the basic MCP server via STDIO transport, discovers available
-tools, and invokes them. This demonstrates how an orchestrator (e.g., a
-NOS Agent Fabric) would interact with a vendor knowledge agent.
+tools, and invokes them. This demonstrates how an orchestrator (e.g., an
+orchestration platform's agent fabric) would interact with a vendor
+knowledge agent.
 """
 
 import asyncio

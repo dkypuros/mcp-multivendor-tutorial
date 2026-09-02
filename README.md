@@ -1,10 +1,10 @@
 # mcp-multivendor-tutorial
 
 A hands-on tutorial for building multivendor agentic AI integrations using the
-Model Context Protocol (MCP). Demonstrates how a network orchestrator or NOS
-(Network Operating System) can discover and invoke vendor-hosted knowledge
-agents to retrieve product knowledge, search support case history, and assist
-with root cause analysis across a multivendor infrastructure stack.
+Model Context Protocol (MCP). Demonstrates how a network orchestration
+platform can discover and invoke vendor-hosted knowledge agents to retrieve
+product knowledge, search support case history, and assist with root cause
+analysis across a multivendor infrastructure stack.
 
 ## Why MCP for Multivendor
 
@@ -94,8 +94,8 @@ The server runs on STDIO transport. It exposes:
 ### Example 02: Connect an Orchestrator
 
 An MCP client that connects to the server from example 01, discovers its
-tools, and invokes them. This is what the orchestrator (NOS, agent fabric,
-copilot) does.
+tools, and invokes them. This is what the orchestrator (orchestration
+platform, agent fabric, copilot) does.
 
 ```bash
 # Python (from examples/02_basic_mcp_client/)
