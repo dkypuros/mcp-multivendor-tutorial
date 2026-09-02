@@ -3,6 +3,30 @@
 Public references for the patterns used in this tutorial. Each entry notes which part of the
 tutorial it supports.
 
+Everything in this tutorial rests on one idea: when an orchestration platform needs product
+knowledge from many vendors, each vendor exposes that knowledge as an MCP server, and the
+orchestrator reaches all of them the same way — one protocol, many specialized endpoints. That
+idea is simple to demo but raises immediate questions the moment it heads toward production. Who
+is allowed to call a vendor's MCP server? How does a vendor keep one partner's traffic from
+crowding out another's? Where do authentication, rate limiting, and observability live when the
+number of MCP servers grows past two or three — in every server, or in one place in front of all
+of them?
+
+The industry answer that has emerged is the **MCP gateway**: a policy-enforcing front door,
+built on the Kubernetes Gateway API, that centralizes those cross-cutting concerns so the MCP
+servers behind it stay focused on their domain knowledge. Red Hat has been one of the most
+public voices on this pattern — it ships the underlying open-source projects (Kuadrant,
+Authorino, Limitador), productizes them as Connectivity Link, and has published both engineering
+deep-dives and official product documentation on running MCP traffic through exactly this kind
+of gateway.
+
+The references below are organized to follow that arc. The first group covers the gateway
+security pattern itself — start with the Red Hat Developer article if you want the engineering
+detail, or the Red Hat blog post if you want the strategic framing first. The second group lists
+the upstream open-source projects the pattern is built from, and the third points to Red Hat's
+published MCP servers and APIs — the concrete endpoints a multivendor integration would actually
+connect to.
+
 ## MCP gateway security (Gateway API + Kuadrant)
 
 These three references cover the same architecture described in
