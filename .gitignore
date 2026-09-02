@@ -1,0 +1,11 @@
+.env
+node_modules/
+__pycache__/
+*.pyc
+certs/*.crt
+certs/*.key
+certs/*.csr
+certs/*.pem
+certs/*.srl
+.venv/
+dist/

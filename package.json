@@ -1,0 +1,21 @@
+{
+  "name": "mcp-multivendor-tutorial",
+  "version": "1.0.0",
+  "description": "Multivendor MCP tutorial for telco and enterprise agentic AI integration",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "server": "npx tsx examples/01_basic_mcp_server/server.ts",
+    "client": "npx tsx examples/02_basic_mcp_client/client.ts",
+    "client:redhat": "npx tsx examples/03_red_hat_mcp_client/client.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}
