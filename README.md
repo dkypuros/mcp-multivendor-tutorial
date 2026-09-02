@@ -20,15 +20,7 @@ automation. MCP provides a standard protocol for this:
 - **Vendor independence** -- the orchestrator uses the same protocol for every
   vendor, regardless of their internal stack
 
-```
-+-------------------+       MCP        +-------------------+
-|   Orchestrator    | <--------------> |   Vendor A Agent  |  (Platform KB)
-|   (NOS / Copilot) |       MCP        +-------------------+
-|                   | <--------------> |   Vendor B Agent  |  (RAN KB)
-|                   |       MCP        +-------------------+
-|                   | <--------------> |   Vendor C Agent  |  (Network KB)
-+-------------------+                  +-------------------+
-```
+<img src="docs/diagrams/architecture.svg" alt="Orchestrator connects to Vendor A, B, and C agents over MCP" width="720" />
 
 ## Repository Structure
 

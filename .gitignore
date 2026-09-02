@@ -9,3 +9,5 @@ certs/*.pem
 certs/*.srl
 .venv/
 dist/
+.ai_conversations/
+CLAUDE.md
