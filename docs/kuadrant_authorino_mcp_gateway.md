@@ -168,8 +168,13 @@ spec:
 
 ## Further reading
 
+- [Advanced authentication and authorization for MCP Gateway](https://developers.redhat.com/articles/2025/12/12/advanced-authentication-authorization-mcp-gateway)
+  — Red Hat Developer article on this same pattern, extended with identity-based tool filtering,
+  OAuth2 token exchange, and Vault integration
+- [Connectivity Link 1.4 MCP gateway docs](https://docs.redhat.com/en/documentation/red_hat_connectivity_link/1.4/html/mcp_gateway/mcp-gateway-introduction)
 - [Kuadrant documentation](https://docs.kuadrant.io)
 - [Kuadrant Operator (GitHub)](https://github.com/Kuadrant/kuadrant-operator)
 - [Authorino (GitHub)](https://github.com/Kuadrant/authorino)
 - [Limitador (GitHub)](https://github.com/Kuadrant/limitador)
 - [Gateway API](https://gateway-api.sigs.k8s.io/)
+- More in [`docs/resources/`](resources/README.md)

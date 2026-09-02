@@ -45,6 +45,7 @@ mcp-multivendor-tutorial/
 ├── docs/
 │   ├── kuadrant_authorino_mcp_gateway.md   # Gateway API + Kuadrant auth pattern
 │   ├── red_hat_mcp_server_landscape.md     # Red Hat MCP server / API catalog reference
+│   ├── resources/                     # annotated public references
 │   └── diagrams/                      # SVG architecture diagrams
 ├── security/
 │   ├── README.md                      # mTLS + OAuth2 walkthrough
