@@ -13,8 +13,8 @@ using the Kubernetes [Gateway API](https://gateway-api.sigs.k8s.io/) and
 
 On OpenShift, these ship as part of **Connectivity Link**, installed via OperatorHub, with the
 same `AuthPolicy`/`RateLimitPolicy` custom resources described below. See Red Hat's public docs:
-[Connectivity Link documentation](https://docs.redhat.com) and the upstream projects at
-[github.com/Kuadrant](https://github.com/Kuadrant).
+[Connectivity Link documentation](https://docs.redhat.com/en/documentation/red_hat_connectivity_link)
+and the upstream projects at [github.com/Kuadrant](https://github.com/Kuadrant).
 
 <img src="diagrams/auth_gateway.svg" alt="Orchestrator connects through a Gateway API gateway enforcing AuthPolicy and RateLimitPolicy to reach Vendor A, B, and C MCP servers" width="740" />
 
@@ -62,8 +62,6 @@ kind: Gateway
 metadata:
   name: mcp-gateway
   namespace: mcp
-  labels:
-    kuadrant.io/managed: "true"
 spec:
   gatewayClassName: <your-gatewayclass>
   listeners:

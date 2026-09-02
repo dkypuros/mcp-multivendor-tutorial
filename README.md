@@ -42,6 +42,10 @@ mcp-multivendor-tutorial/
 │   └── 03_red_hat_mcp_client/         # connect to a live Red Hat MCP server
 │       ├── client.py                  # Python client with OAuth2 + mTLS
 │       └── client.ts                  # TypeScript client with OAuth2 + mTLS
+├── docs/
+│   ├── kuadrant_authorino_mcp_gateway.md   # Gateway API + Kuadrant auth pattern
+│   ├── red_hat_mcp_server_landscape.md     # Red Hat MCP server / API catalog reference
+│   └── diagrams/                      # SVG architecture diagrams
 ├── security/
 │   ├── README.md                      # mTLS + OAuth2 walkthrough
 │   └── generate_certs.sh              # generate test PKI cert chain
