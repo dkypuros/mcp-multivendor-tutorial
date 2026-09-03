@@ -189,10 +189,17 @@ Root CA
 
 ### Centralized gateway auth and rate limiting
 
-For deployments with many vendor MCP servers, see
-[`docs/kuadrant_authorino_mcp_gateway.md`](docs/kuadrant_authorino_mcp_gateway.md) for a
-Gateway API + Kuadrant pattern (the open-source basis for Red Hat OpenShift Connectivity Link)
-that centralizes authentication and rate limiting in front of the whole fleet.
+For deployments with many vendor MCP servers, the per-connection security above is complemented
+by an **MCP Gateway** that centralizes authentication and rate limiting in front of the whole
+fleet:
+
+<img src="docs/diagrams/auth_gateway.svg" alt="Orchestrator connects through an MCP Gateway enforcing AuthPolicy and RateLimitPolicy to reach Vendor A, B, and C MCP servers" width="720" />
+
+See [`docs/kuadrant_authorino_mcp_gateway.md`](docs/kuadrant_authorino_mcp_gateway.md) for the
+full walkthrough — a Gateway API + Kuadrant pattern (the open-source basis for Red Hat OpenShift
+Connectivity Link) — and [`docs/README.md`](docs/README.md) for the narrative connecting this
+gateway layer to the rest of the security story. All diagrams are cataloged in
+[`docs/diagrams/`](docs/diagrams/README.md).
 
 ## Concepts
 
