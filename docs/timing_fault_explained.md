@@ -39,6 +39,32 @@ inconsistent, the clock keeps running on its own oscillator — **FREERUN** — 
 from the truth every second. LOCKED ↔ FREERUN is the single most important status word in this
 whole scenario.
 
+## What a live servo looks like
+
+The numbers below are real: ten consecutive readings from a running PTP implementation — two
+`ptp4l` instances (grandmaster and DU) over a veth pair, software timestamping, mock PHC — the
+kind of setup a lab uses to exercise the *protocol* faithfully without timing hardware. Full
+capture: [`data/ptp_offset_samples.jsonl`](data/ptp_offset_samples.jsonl)
+(notes in [`data/README.md`](data/README.md)).
+
+| t (UTC) | `phc_offset_ns` |
+|---------|----------------:|
+| 02:41:46 | −6,253 |
+| 02:41:54 | −5,932 |
+| 02:42:01 | −5,592 |
+| 02:42:08 | −5,217 |
+| 02:42:15 | −4,981 |
+
+Two things worth reading out of thirty seconds of data. First, the servo is visibly *working*:
+the offset walks steadily from −6.3 μs toward −5.0 μs as the loop disciplines the clock — that
+convergence is the LOCKED state in action. Second, even converging, a software clock chain sits
+at several microseconds of error — outside the **1.5 μs** the radio requires. The implementation
+says so about itself in the fidelity note it returns with every reading: *"The PTP protocol,
+BMCA and port state machines are REAL… the accuracy is not."* That gap between a correct
+protocol and insufficient accuracy is precisely why production fronthaul needs
+hardware-timestamping NICs — and why a fault in that hardware path, described next, is so
+consequential.
+
 ## The fault: a hardware timestamp that never arrived
 
 Now the actual failure this tutorial's demo injects — modeled on a class of fault documented

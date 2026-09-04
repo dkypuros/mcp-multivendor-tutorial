@@ -1,0 +1,10 @@
+{"t": "2026-09-04T02:41:46Z", "phc_offset_ns": -6253, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:41:50Z", "phc_offset_ns": -6225, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:41:54Z", "phc_offset_ns": -5932, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:41:57Z", "phc_offset_ns": -5910, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:01Z", "phc_offset_ns": -5592, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:04Z", "phc_offset_ns": -5601, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:08Z", "phc_offset_ns": -5217, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:11Z", "phc_offset_ns": -5313, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:15Z", "phc_offset_ns": -4981, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
+{"t": "2026-09-04T02:42:18Z", "phc_offset_ns": -5032, "gm_port_state": "MASTER", "du_port_state": "SLAVE", "timestamping": "software", "clock_class": "mock"}
