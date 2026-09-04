@@ -73,17 +73,44 @@ Honest boundaries of the fixture, stated plainly:
   v3, only the `case_search` function body changes — the tool contract and fixture semantics
   hold.
 
-### Switching the fixture off
+### Switching the fixture off: step by step
 
-Create a service account (console.redhat.com → Service Accounts), grant it case visibility, and
-set two environment variables on the deployment:
+1. **Create a service account.** console.redhat.com → *Service Accounts* → *Create service
+   account*. You receive a client ID and a client secret. The secret is shown once — store it
+   immediately.
+2. **Grant it access.** A freshly created service account can mint tokens but is not yet
+   entitled to anything — see the pitfall below. In console.redhat.com → *Identity & Access
+   Management → User Access*, add the service account to a group whose roles include support
+   case access. (Reference: [Getting started with Red Hat APIs](https://access.redhat.com/articles/3626371).)
+3. **Configure the credentials — locally only.** Copy `.env.example` to `.env` and fill in:
 
-```
-RH_SSO_CLIENT_ID=<service-account-client-id>
-RH_SSO_CLIENT_SECRET=<service-account-secret>
-```
+   ```
+   RH_SSO_CLIENT_ID=<service-account-client-id>
+   RH_SSO_CLIENT_SECRET=<service-account-secret>
+   ```
+
+   `.env` is gitignored in this repository; keep it that way. The values in `.env.example` are
+   placeholders and must stay placeholders — never commit a real credential, and treat a secret
+   that has ever been committed (or pasted anywhere durable) as compromised and rotate it.
+4. **On Kubernetes/OpenShift**, don't mount `.env` — create a Secret and inject it:
+
+   ```bash
+   kubectl create secret generic rh-sso-service-account --from-env-file=.env
+   kubectl set env deploy/<your-deployment> --from=secret/rh-sso-service-account
+   ```
 
 No code changes: the same tool, same contract, `"emulated": false`, production data.
+
+### The pitfall to expect: a valid token that still gets 401
+
+A newly created service account will successfully obtain an access token from
+`sso.redhat.com` — and the Case Management API will still answer
+`401 {"message": "Unable to authenticate user"}`. Decode the token and you'll see why:
+`scope` is empty and there is no organization claim. Authentication and entitlement are two
+different steps: the token proves *who the client is*, but until the service account is added
+to your account's user-access groups (step 2), it represents nobody's data. If you hit this,
+the fix is in the console, not in your code — and this server keeps returning the labeled
+fixture until the entitled token starts working, so nothing breaks in the meantime.
 
 ## Feeding the RCA orchestrator
 
