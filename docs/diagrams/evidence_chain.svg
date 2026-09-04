@@ -1,88 +1,114 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Helvetica, Arial, sans-serif">
-  <rect width="760" height="420" fill="#ffffff" rx="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="Helvetica, Arial, sans-serif">
+  <rect width="760" height="470" fill="#ffffff" rx="8"/>
 
-  <!-- evidence plane columns -->
+  <!-- Column 1: RAN -->
   <g>
-    <rect x="20" y="20" width="170" height="250" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
-    <rect x="20" y="20" width="170" height="34" rx="8" fill="#24292f"/>
-    <text x="105" y="42" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">RAN Agent</text>
-    <text x="30" y="74" font-size="11" fill="#24292f">DU alerts:</text>
-    <text x="30" y="90" font-size="11" fill="#9a6700">cell unavailable</text>
-    <text x="30" y="114" font-size="11" fill="#24292f">Clock-state history:</text>
-    <text x="30" y="130" font-size="11" fill="#9a6700">FREERUN &#8596; LOCKED</text>
-    <text x="30" y="146" font-size="11" fill="#57606a">oscillation around</text>
-    <text x="30" y="162" font-size="11" fill="#57606a">the incident</text>
+    <rect x="14" y="16" width="178" height="290" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="14" y="16" width="178" height="46" rx="8" fill="#24292f"/>
+    <text x="103" y="35" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">RAN plane</text>
+    <text x="103" y="52" text-anchor="middle" font-size="10" fill="#c9d1d9" font-family="monospace">ran_sync_forensics</text>
+    <g font-family="monospace" font-size="8.6" fill="#24292f">
+      <text x="22" y="80">{</text>
+      <text x="26" y="94">"plane": "ran",</text>
+      <text x="26" y="108" fill="#9a6700">"emulated": true,</text>
+      <text x="26" y="122">"signal":</text>
+      <text x="30" y="134" fill="#0b62a4">"ran_sync_followup</text>
+      <text x="30" y="146" fill="#0b62a4">_anomaly",</text>
+      <text x="26" y="162">"findings": [</text>
+      <text x="30" y="176" fill="#57606a">"RX: Follow_Up of</text>
+      <text x="30" y="188" fill="#57606a"> Sync X missing",</text>
+      <text x="30" y="202" fill="#57606a">"RX: X+1 carries</text>
+      <text x="30" y="214" fill="#57606a"> prior-origin ts",</text>
+      <text x="30" y="228" fill="#57606a">"GM TX: Follow_Up X</text>
+      <text x="30" y="240" fill="#57606a"> never sent"</text>
+      <text x="26" y="254">]</text>
+      <text x="22" y="268">}</text>
+    </g>
   </g>
 
+  <!-- Column 2: Platform / timing -->
   <g>
-    <rect x="210" y="20" width="170" height="250" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
-    <rect x="210" y="20" width="170" height="34" rx="8" fill="#24292f"/>
-    <text x="295" y="42" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Platform Agent</text>
-    <text x="220" y="74" font-size="11" fill="#24292f">PTP daemon logs:</text>
-    <text x="220" y="90" font-size="11" fill="#9a6700">master offset spike,</text>
-    <text x="220" y="106" font-size="11" fill="#57606a">normalizing post-event</text>
-    <text x="220" y="130" font-size="11" fill="#24292f">Timing CloudEvents:</text>
-    <text x="220" y="146" font-size="11" fill="#9a6700">lock-state flips with</text>
-    <text x="220" y="162" font-size="11" fill="#9a6700">large offset values</text>
+    <rect x="202" y="16" width="178" height="290" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="202" y="16" width="178" height="46" rx="8" fill="#24292f"/>
+    <text x="291" y="35" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Platform plane</text>
+    <text x="291" y="52" text-anchor="middle" font-size="10" fill="#c9d1d9" font-family="monospace">GET /ptp (timing bridge)</text>
+    <g font-family="monospace" font-size="8.6" fill="#24292f">
+      <text x="210" y="80">{</text>
+      <text x="214" y="94">"port_state":</text>
+      <text x="218" y="106" fill="#c93c37">"FREERUN",</text>
+      <text x="214" y="120">"du_port_state":</text>
+      <text x="218" y="132" fill="#c93c37">"UNCALIBRATED",</text>
+      <text x="214" y="146">"phc_offset_ns":</text>
+      <text x="218" y="158" fill="#c93c37">-50000198,</text>
+      <text x="214" y="172">"clock_class": 6,</text>
+      <text x="214" y="186">"timestamping":</text>
+      <text x="218" y="198">"software",</text>
+      <text x="214" y="212">"cloud_event_state":</text>
+      <text x="218" y="224" fill="#c93c37">"FREERUN"</text>
+      <text x="210" y="238">}</text>
+      <text x="214" y="258" fill="#57606a">+ CloudEvent emitted:</text>
+      <text x="214" y="270" fill="#57606a">event.ptp.sync.</text>
+      <text x="214" y="282" fill="#57606a">state-change</text>
+    </g>
   </g>
 
+  <!-- Column 3: Hardware / NIC -->
   <g>
-    <rect x="400" y="20" width="170" height="250" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
-    <rect x="400" y="20" width="170" height="34" rx="8" fill="#24292f"/>
-    <text x="485" y="42" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Forensics Agent</text>
-    <text x="410" y="74" font-size="11" fill="#24292f">gNB RX:</text>
-    <text x="410" y="90" font-size="11" fill="#9a6700">Follow_Up of Sync X</text>
-    <text x="410" y="106" font-size="11" fill="#9a6700">missing; X+1 carries</text>
-    <text x="410" y="122" font-size="11" fill="#9a6700">prior-origin timestamp</text>
-    <text x="410" y="146" font-size="11" fill="#24292f">GM TX:</text>
-    <text x="410" y="162" font-size="11" fill="#9a6700">Follow_Up X never sent;</text>
-    <text x="410" y="178" font-size="11" fill="#57606a">preciseOriginTimestamp</text>
-    <text x="410" y="194" font-size="11" fill="#57606a">matches previous Sync</text>
+    <rect x="390" y="16" width="178" height="290" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="390" y="16" width="178" height="46" rx="8" fill="#24292f"/>
+    <text x="479" y="35" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Hardware plane</text>
+    <text x="479" y="52" text-anchor="middle" font-size="10" fill="#c9d1d9" font-family="monospace">nic_timestamp_counters</text>
+    <g font-family="monospace" font-size="8.6" fill="#24292f">
+      <text x="398" y="80">{</text>
+      <text x="402" y="94">"plane": "hardware",</text>
+      <text x="402" y="108" fill="#9a6700">"emulated": true,</text>
+      <text x="402" y="122">"signal":</text>
+      <text x="406" y="134" fill="#0b62a4">"nic_firmware_suspect",</text>
+      <text x="402" y="150">"counters": {</text>
+      <text x="406" y="164" fill="#c93c37">"tx_hwtstamp_timeouts":1,</text>
+      <text x="406" y="178" fill="#c93c37">"ptp_tx_carryover": 1,</text>
+      <text x="406" y="192" fill="#c93c37">"ptp_ts_fifo_overflow":1</text>
+      <text x="402" y="206">},</text>
+      <text x="402" y="220">"delta_ms": 74.4,</text>
+      <text x="402" y="234">"finding": "egress HW</text>
+      <text x="406" y="246">timestamp timeout"</text>
+      <text x="398" y="260">}</text>
+    </g>
   </g>
 
+  <!-- Column 4: Cluster / O-Cloud -->
   <g>
-    <rect x="590" y="20" width="150" height="250" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
-    <rect x="590" y="20" width="150" height="34" rx="8" fill="#24292f"/>
-    <text x="665" y="42" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Hardware Agent</text>
-    <text x="600" y="74" font-size="11" fill="#24292f">kernel log:</text>
-    <text x="600" y="90" font-size="11" fill="#9a6700">egress HW timestamp</text>
-    <text x="600" y="106" font-size="11" fill="#9a6700">timeout for seq=X</text>
-    <text x="600" y="130" font-size="11" fill="#24292f">driver debug:</text>
-    <text x="600" y="146" font-size="11" fill="#9a6700">stale timestamp popped</text>
-    <text x="600" y="162" font-size="11" fill="#57606a">into next window</text>
-    <text x="600" y="186" font-size="11" fill="#24292f">counters:</text>
-    <text x="600" y="202" font-size="11" fill="#9a6700">tx_hwtstamp_timeouts</text>
-    <text x="600" y="218" font-size="11" fill="#9a6700">0 &#8594; 1</text>
+    <rect x="578" y="16" width="168" height="290" rx="8" fill="#f6f8fa" stroke="#30363d" stroke-width="1.5"/>
+    <rect x="578" y="16" width="168" height="46" rx="8" fill="#24292f"/>
+    <text x="662" y="35" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ffffff">Cluster plane</text>
+    <text x="662" y="52" text-anchor="middle" font-size="10" fill="#c9d1d9" font-family="monospace">ocloud_cluster_health</text>
+    <g font-family="monospace" font-size="8.6" fill="#24292f">
+      <text x="586" y="80">// live k8s reads:</text>
+      <text x="586" y="94">{</text>
+      <text x="590" y="108">"source": "oai gNB/DU/UE</text>
+      <text x="594" y="120">(real)",</text>
+      <text x="590" y="134">"pods": [{</text>
+      <text x="594" y="148">"phase": "Running",</text>
+      <text x="594" y="162">"ready": true,</text>
+      <text x="594" y="176">"restarts": 0</text>
+      <text x="590" y="190">}]</text>
+      <text x="586" y="204">}</text>
+      <text x="586" y="226" fill="#57606a">OCM checks: Available,</text>
+      <text x="586" y="238" fill="#57606a">Joined, ClockSynced —</text>
+      <text x="586" y="250" fill="#57606a">the cluster-level echo</text>
+      <text x="586" y="262" fill="#57606a">of the timing chain</text>
+    </g>
   </g>
 
-  <!-- orchestrator bar -->
-  <rect x="20" y="295" width="720" height="100" rx="8" fill="#eef2ff" stroke="#30363d" stroke-width="1.5"/>
-  <text x="380" y="380" text-anchor="middle" font-size="14" font-weight="600" fill="#24292f">Orchestrating Agent (deterministic pipeline, corroboration &#8805; 2/3, human gate below the bar)</text>
-
-  <defs>
-    <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M1,1 L7,4 L1,7 Z" fill="#24292f"/>
-    </marker>
-  </defs>
-
-  <g font-size="10.5" fill="#24292f">
-    <rect x="40" y="310" width="140" height="36" rx="5" fill="#ffffff" stroke="#57606a"/>
-    <text x="110" y="326" text-anchor="middle">Trigger platform-side</text>
-    <text x="110" y="339" text-anchor="middle">analysis</text>
-    <line x1="180" y1="328" x2="208" y2="328" stroke="#24292f" stroke-width="1.3" marker-end="url(#ar)"/>
-
-    <rect x="210" y="310" width="140" height="36" rx="5" fill="#ffffff" stroke="#57606a"/>
-    <text x="280" y="326" text-anchor="middle">Packet forensics to</text>
-    <text x="280" y="339" text-anchor="middle">capture the disturbance</text>
-    <line x1="350" y1="328" x2="378" y2="328" stroke="#24292f" stroke-width="1.3" marker-end="url(#ar)"/>
-
-    <rect x="380" y="310" width="140" height="36" rx="5" fill="#ffffff" stroke="#57606a"/>
-    <text x="450" y="326" text-anchor="middle">Hardware timestamp-</text>
-    <text x="450" y="339" text-anchor="middle">path analysis</text>
-    <line x1="520" y1="328" x2="548" y2="328" stroke="#24292f" stroke-width="1.3" marker-end="url(#ar)"/>
-
-    <rect x="550" y="310" width="170" height="36" rx="5" fill="#24292f"/>
-    <text x="635" y="326" text-anchor="middle" fill="#ffffff">Root cause: egress</text>
-    <text x="635" y="339" text-anchor="middle" fill="#ffffff">hardware timestamp miss</text>
+  <!-- Orchestrator: the real decision object -->
+  <rect x="14" y="322" width="732" height="132" rx="8" fill="#eef2ff" stroke="#30363d" stroke-width="1.5"/>
+  <text x="26" y="344" font-size="12.5" font-weight="600" fill="#24292f">Orchestrating agent — gathers testimony over MCP, corroborates, and emits an auditable decision:</text>
+  <g font-family="monospace" font-size="9.2" fill="#24292f">
+    <text x="30" y="364">{ "eventType": "RcaConcludedEvent", "traceId": "tr-…", "capifScope": "3gpp#mcp-aef:mcp-tools",</text>
+    <text x="30" y="380">  "trigger": "PTP sync fault (cell unavailable, FREERUN&#8596;LOCKED)",</text>
+    <text x="30" y="396">  "corroboration": "2/3",  "faultClass": "egress-hw-timestamp-miss",</text>
+    <text x="30" y="412">  "decision": "CONCLUDE"   // below the bar instead: "HOLD — a human signs"</text>
+    <text x="30" y="428">}</text>
   </g>
+  <text x="26" y="446" font-size="10.5" fill="#57606a">Deterministic pipeline; an LLM may narrate the evidence, never make the decision. Evidence fidelity ("emulated": true) travels inside the testimony itself.</text>
 </svg>
