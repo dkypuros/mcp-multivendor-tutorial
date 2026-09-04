@@ -88,7 +88,12 @@ a cascade in which *every component behaves correctly and the system still fails
 
 ## Why no single party can diagnose it
 
-Trace the evidence backward and notice who owns each piece:
+Trace the evidence backward and notice who owns each piece — this is the same evidence chain
+formalized in [`multivendor_rca_pattern.md`](multivendor_rca_pattern.md), shown here with the
+actual testimony each plane returns:
+
+<img src="diagrams/evidence_chain.svg" alt="Four evidence planes with their actual JSON testimony, and the orchestrating agent's auditable decision object" width="740" />
+
 
 - The **dead cell and the alarm** are visible to the RAN vendor.
 - The **offset spike and the FREERUN transition** are visible to the platform operator's PTP
