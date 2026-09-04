@@ -26,6 +26,16 @@ in one place, so the vendor servers stay focused on their domain knowledge.
 Used in: the root README ("Centralized gateway auth and rate limiting") and
 [`docs/kuadrant_authorino_mcp_gateway.md`](../kuadrant_authorino_mcp_gateway.md).
 
+## `evidence_chain.svg` — the multivendor RCA evidence chain
+
+<img src="evidence_chain.svg" alt="Four evidence planes corroborated by an orchestrating agent that concludes a root cause" width="740" />
+
+Four vendor-owned evidence planes — RAN alerts, platform timing, protocol forensics, hardware
+counters — each exposed as MCP testimony, corroborated by an orchestrating agent that only
+concludes when independent planes agree.
+
+Used in: [`docs/multivendor_rca_pattern.md`](../multivendor_rca_pattern.md).
+
 ## Conventions
 
 - Diagrams are standalone `.svg` files referenced with `<img>` tags — GitHub strips inline
