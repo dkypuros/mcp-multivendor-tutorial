@@ -31,3 +31,12 @@ A full raw snapshot from the same surface:
   "clock_class": "mock"
 }
 ```
+
+## `incident_capture.jsonl`
+
+One injected timing incident, captured end to end as eight timestamped records: nominal state,
+fault injection, faulted state, the CloudEvents stream, the orchestrator's view, the RCA
+decision (a recorded HOLD with its evidence array), the heal, and the restored state.
+Referenced from [`../timestamp_path.md`](../timestamp_path.md) and
+[`../fact_packet_schema.md`](../fact_packet_schema.md). Reproduce it against your own endpoints
+with [`../../scripts/capture_incident.py`](../../scripts/capture_incident.py).

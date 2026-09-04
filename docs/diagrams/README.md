@@ -36,6 +36,16 @@ concludes when independent planes agree.
 
 Used in: [`docs/multivendor_rca_pattern.md`](../multivendor_rca_pattern.md).
 
+## `timestamp_path.svg` / `timestamp_path.pdf` — the timestamp path
+
+<img src="timestamp_path.svg" alt="Sequence diagram of the PTP timestamp path with normal and incident branches" width="960" />
+
+Nine lanes from Grandmaster to orchestrator; the green branch is the steady state, the red
+branch is the egress-timestamp miss, the purple band is the multi-agent RCA. Built with LaTeX
+TikZ (source in [`src/`](src/)); the PDF is the print/download version.
+
+Used in: [`docs/timestamp_path.md`](../timestamp_path.md).
+
 ## Conventions
 
 - Diagrams are standalone `.svg` files referenced with `<img>` tags — GitHub strips inline
