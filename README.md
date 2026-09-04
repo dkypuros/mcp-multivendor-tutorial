@@ -44,11 +44,13 @@ mcp-multivendor-tutorial/
 │   │   └── client.ts                  # TypeScript client with OAuth2 + mTLS
 │   └── 04_redhat_api_mcp_server/      # MCP server over Red Hat's published APIs
 │       └── server.py                  # live CVE + lifecycle tools, documented case fixture
-├── docs/
-│   ├── kuadrant_authorino_mcp_gateway.md   # Gateway API + Kuadrant auth pattern
-│   ├── red_hat_mcp_server_landscape.md     # Red Hat MCP server / API catalog reference
-│   ├── resources/                     # annotated public references
-│   └── diagrams/                      # SVG architecture diagrams
+├── docs/                              # architecture, security, RCA pattern, data captures
+│   │                                  #   (full index: docs/README.md)
+│   ├── diagrams/                      # SVG + TikZ PDF architecture diagrams
+│   ├── data/                          # captured measurements and incident datasets
+│   └── resources/                     # annotated public references
+├── scripts/
+│   └── capture_incident.py            # reproduce the incident dataset
 ├── security/
 │   ├── README.md                      # mTLS + OAuth2 walkthrough
 │   └── generate_certs.sh              # generate test PKI cert chain
