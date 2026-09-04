@@ -112,6 +112,18 @@ to your account's user-access groups (step 2), it represents nobody's data. If y
 the fix is in the console, not in your code — and this server keeps returning the labeled
 fixture until the entitled token starts working, so nothing breaks in the meantime.
 
+One command turns the mystery into a diagnosis — ask the RBAC API what your token is actually
+entitled to:
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://console.redhat.com/api/rbac/v1/access/?application=" | jq .meta
+```
+
+An authenticated `200` with `"count": 0` means exactly what it says: the identity is real and
+holds no roles yet. When the grant lands, the same call lists the permissions — and the case
+search starts returning production data.
+
 ## Feeding the RCA orchestrator
 
 Behind the tutorial's [MCP gateway](kuadrant_authorino_mcp_gateway.md), these tools slot into
