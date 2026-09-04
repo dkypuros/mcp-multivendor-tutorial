@@ -39,9 +39,11 @@ mcp-multivendor-tutorial/
 │   ├── 02_basic_mcp_client/           # connect an orchestrator to the agent
 │   │   ├── client.py                  # Python MCP client
 │   │   └── client.ts                  # TypeScript MCP client
-│   └── 03_red_hat_mcp_client/         # connect to a live Red Hat MCP server
-│       ├── client.py                  # Python client with OAuth2 + mTLS
-│       └── client.ts                  # TypeScript client with OAuth2 + mTLS
+│   ├── 03_red_hat_mcp_client/         # connect to a live Red Hat MCP server
+│   │   ├── client.py                  # Python client with OAuth2 + mTLS
+│   │   └── client.ts                  # TypeScript client with OAuth2 + mTLS
+│   └── 04_redhat_api_mcp_server/      # MCP server over Red Hat's published APIs
+│       └── server.py                  # live CVE + lifecycle tools, documented case fixture
 ├── docs/
 │   ├── kuadrant_authorino_mcp_gateway.md   # Gateway API + Kuadrant auth pattern
 │   ├── red_hat_mcp_server_landscape.md     # Red Hat MCP server / API catalog reference

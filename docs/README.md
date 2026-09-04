@@ -73,6 +73,7 @@ catching exactly what the others cannot see.
 | [`timing_fault_explained.md`](timing_fault_explained.md) | The timing fault end to end — PTP, Follow_Up messages, LOCKED/FREERUN, and why the evidence spans four organizations |
 | [`timestamp_path.md`](timestamp_path.md) | The machinery the fault travels through: nine components from Grandmaster to orchestrator, normal and incident branches, with captured data from both |
 | [`fact_packet_schema.md`](fact_packet_schema.md) | The testimony envelope and decision object, mapped to the TM Forum standards (IG1453, GB1087, IG1253, TMF688) they implement |
+| [`redhat_api_stubs.md`](redhat_api_stubs.md) | Example 04's Red Hat API tools: which are live against production endpoints, which are fixtures, and how the fixtures track the official docs |
 | [`red_hat_mcp_server_landscape.md`](red_hat_mcp_server_landscape.md) | The vendor side: Red Hat's published MCP servers and API catalog — the concrete endpoints a multivendor integration connects to |
 | [`resources/`](resources/README.md) | Annotated public references: Red Hat's MCP gateway articles and docs, the upstream projects, and the catalogs |
 | `diagrams/` | The SVG architecture diagrams used across the tutorial |
