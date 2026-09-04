@@ -58,10 +58,26 @@ response carries both markers:
 | Fully live | `true` | `false` | Credentials + case entitlement |
 | **Authenticated demo** | `true` | `true` | Credentials present and `RH_DEMO_DATA=true` (or the account lacks entitlement) — a real token is minted from `sso.redhat.com` on every call, *then* the data pivots to the local fixture, and the response says so in its `note` |
 
-The authenticated-demo mode is the one to show a customer: the part where trust lives — SSO,
-client credentials, token verification — runs against production Red Hat identity
-infrastructure on every single call, while the case payload stays synthetic. Nothing is
-pretended: the response itself distinguishes what was proven from what was shown.
+### A graduated onboarding path
+
+For a customer or partner evaluating this integration, the three modes form a deliberate
+onboarding sequence — each rung validates one more layer, and access to production data is the
+*final* step, not a precondition:
+
+| Rung | Formal name | What is validated | Impact on production systems |
+|------|-------------|-------------------|------------------------------|
+| 1 | **Conformance sandbox** | The integration contract: tool discovery, request/response schemas, error handling | None — no credentials involved |
+| 2 | **Production identity validation** | The complete security path — service-account credentials, OAuth2 client-credentials flow, token issuance and verification against production `sso.redhat.com` — carried by **synthetic transactions**: real calls, representative data | None — non-intrusive; no production records read or written, no entitlements exercised |
+| 3 | **Production integration** | End-to-end entitled access to live data under the customer's own RBAC grants | Read access to the customer's case data, under their own access policy |
+
+Rung 2 is the heart of the approach. Trust concerns — *is the identity real, does the
+credential lifecycle work, can tokens be minted and verified* — are settled against production
+identity infrastructure on every call, while the data payload remains synthetic and declares
+itself as such (`"authenticated": true, "emulated": true`). A partner can run rung 2
+indefinitely, in any environment, without touching an operational system; moving to rung 3 is a
+policy decision (an RBAC grant in the customer's console), not an engineering change. The
+response itself always records which rung produced it, so evidence gathered during validation
+can never be mistaken for production data later.
 
 ### How the fixture tracks the official API
 
