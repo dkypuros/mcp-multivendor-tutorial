@@ -41,7 +41,38 @@ The orchestrator's output is equally typed — an auditable decision object:
 ```
 
 Below the corroboration bar the same object carries `"decision": "HOLD — a human signs"` — the
-refusal is itself an auditable event.
+refusal is itself an auditable event, with the evidence array preserved:
+
+```json
+"evidence": [
+  {"plane": "cluster",  "tool": "cluster_health",     "signals": [],
+   "evidence": "managed cluster unavailable"},
+  {"plane": "ran",      "tool": "ran_element_status", "signals": [],
+   "evidence": "gNB Running; protective RF shutdown (lossOfRealTimeSynchronization)"},
+  {"plane": "platform", "tool": "ptp_operator_status","signals": ["ptp_offset_exceeded"],
+   "evidence": "ptp4l MASTER, offset excursion during incident"},
+  {"plane": "hardware", "tool": "nic_timestamp_counters", "signals": ["nic_firmware_suspect"],
+   "evidence": "~74 ms phase jump on dropped Follow_Up"}
+]
+```
+
+### The audit trail speaks standards
+
+Every step of the pipeline is emitted as a span mapped to a public specification, so the audit
+trail reads as a standards document rather than an application log:
+
+| Span | Specification | Typical latency |
+|------|---------------|-----------------|
+| Fault alarm ingest | O-RAN WG10 / 3GPP TS 28.532 (O1 FM) | ~50 ms |
+| Security authorization | 3GPP TS 29.222 (CAPIF) / O-RAN WG11 | ~35 ms |
+| Tool execution | O-RAN R1 + Model Context Protocol | ~250 ms |
+| Deterministic routing decision | O-RAN WG2 rApp safety/policy | **~0.03 ms** |
+| LLM narrative synthesis | OpenAI-compatible inference, traced | ~8 s |
+| Audit event emission | TM Forum TMF688 (v4) | ~1.5 ms |
+
+Two latencies carry the governance argument on their own: the *decision* takes 30 microseconds
+of deterministic table lookup, while the LLM's 8 seconds buy only a human-readable narrative.
+The slow, probabilistic component is demonstrably outside the decision path.
 
 The security properties come from the layers described elsewhere in this tutorial: every
 cross-boundary call passes the [MCP gateway](kuadrant_authorino_mcp_gateway.md) (authentication,
