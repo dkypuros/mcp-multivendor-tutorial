@@ -118,37 +118,68 @@ CASE_FIXTURE = [
 ]
 
 
+def _fixture_hits(query):
+    return [c for c in CASE_FIXTURE if not query
+            or query in c["summary"].lower() or query in c["resolution"].lower()]
+
+
 def case_search(args):
+    """Three modes, each declared in the response:
+
+    authenticated=False, emulated=True   no credentials: pure fixture
+    authenticated=True,  emulated=False  credentials + entitlement: live case data
+    authenticated=True,  emulated=True   credentials verified against Red Hat SSO,
+                                         then the pivot to local demo data — either
+                                         because RH_DEMO_DATA=true, or because the
+                                         account isn't entitled to case data yet.
+    The identity handshake is always real when credentials exist; only the data
+    payload is allowed to be synthetic, and it says so.
+    """
     query = (args.get("query") or "").lower()
     client_id = os.environ.get("RH_SSO_CLIENT_ID")
     client_secret = os.environ.get("RH_SSO_CLIENT_SECRET")
-    if client_id and client_secret:
-        tok = _get(SSO_TOKEN_URL, method="POST",
-                   headers={"Content-Type": "application/x-www-form-urlencoded"},
-                   data=urllib.parse.urlencode({
-                       "grant_type": "client_credentials",
-                       "client_id": client_id, "client_secret": client_secret,
-                   }).encode())["access_token"]
+    demo = os.environ.get("RH_DEMO_DATA", "").lower() in ("1", "true", "yes")
+
+    if not (client_id and client_secret):
+        return {"plane": "platform-vendor", "authenticated": False, "emulated": True,
+                "source": "fixture shaped after the Case Management API (POST /support/v1/cases/filter); "
+                          "set RH_SSO_CLIENT_ID/RH_SSO_CLIENT_SECRET for the real identity handshake",
+                "query": query or None, "cases": _fixture_hits(query)}
+
+    # The handshake is real: mint a token from Red Hat SSO on every call.
+    tok = _get(SSO_TOKEN_URL, method="POST",
+               headers={"Content-Type": "application/x-www-form-urlencoded"},
+               data=urllib.parse.urlencode({
+                   "grant_type": "client_credentials",
+                   "client_id": client_id, "client_secret": client_secret,
+               }).encode())["access_token"]
+
+    if not demo:
         body = {"maxResults": 10}
         if args.get("product"):
             body["product"] = args["product"]
-        d = _get(CASE_FILTER, method="POST",
-                 headers={"Authorization": f"Bearer {tok}",
-                          "Content-Type": "application/json"},
-                 data=json.dumps(body).encode())
-        return {"plane": "platform-vendor", "emulated": False,
-                "source": "Red Hat Case Management API (api.access.redhat.com/support/v1/cases/filter)",
-                "cases": d}
-    hits = [c for c in CASE_FIXTURE if not query
-            or query in c["summary"].lower() or query in c["resolution"].lower()]
-    return {
-        "plane": "platform-vendor",
-        "emulated": True,
-        "source": "fixture shaped after the Case Management API (POST /support/v1/cases/filter); "
-                  "set RH_SSO_CLIENT_ID/RH_SSO_CLIENT_SECRET for live queries",
-        "query": query or None,
-        "cases": hits,
-    }
+        try:
+            d = _get(CASE_FILTER, method="POST",
+                     headers={"Authorization": f"Bearer {tok}",
+                              "Content-Type": "application/json"},
+                     data=json.dumps(body).encode())
+            return {"plane": "platform-vendor", "authenticated": True, "emulated": False,
+                    "source": "Red Hat Case Management API (api.access.redhat.com/support/v1/cases/filter)",
+                    "cases": d}
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (401, 403):
+                raise
+            note = (f"token minted by sso.redhat.com but the case API returned {exc.code} — "
+                    "the service account authenticates yet lacks entitlement (see "
+                    "docs/redhat_api_stubs.md); serving demo data through the same structure")
+    else:
+        note = "RH_DEMO_DATA=true — identity handshake performed against sso.redhat.com, data pivoted to local demo fixture"
+
+    return {"plane": "platform-vendor", "authenticated": True, "emulated": True,
+            "auth_source": "sso.redhat.com (client credentials, token verified this call)",
+            "note": note,
+            "source": "fixture shaped after the Case Management API (POST /support/v1/cases/filter)",
+            "query": query or None, "cases": _fixture_hits(query)}
 
 
 TOOLS = {

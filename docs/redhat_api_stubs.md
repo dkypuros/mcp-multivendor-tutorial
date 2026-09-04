@@ -46,7 +46,22 @@ extended life…) exactly as published.
 | Official API | [Case Management API](https://developers.redhat.com/api-catalog/api/case-management) |
 | Endpoint | `POST https://api.access.redhat.com/support/v1/cases/filter` |
 | Auth | OAuth2 client credentials — a [Red Hat service account](https://access.redhat.com/articles/3626371) token from `sso.redhat.com` (the same flow as [example 03](../examples/03_red_hat_mcp_client/)) |
-| Status in this tutorial | **Live when `RH_SSO_CLIENT_ID`/`RH_SSO_CLIENT_SECRET` are set; labeled fixture otherwise** |
+| Status in this tutorial | **Three declared modes — see below** |
+
+The tool separates the two things a customer demo actually needs: the *identity handshake*,
+which must be real, and the *data payload*, which only needs to be representative. Every
+response carries both markers:
+
+| Mode | `authenticated` | `emulated` | When |
+|------|-----------------|------------|------|
+| Pure fixture | `false` | `true` | No credentials configured |
+| Fully live | `true` | `false` | Credentials + case entitlement |
+| **Authenticated demo** | `true` | `true` | Credentials present and `RH_DEMO_DATA=true` (or the account lacks entitlement) — a real token is minted from `sso.redhat.com` on every call, *then* the data pivots to the local fixture, and the response says so in its `note` |
+
+The authenticated-demo mode is the one to show a customer: the part where trust lives — SSO,
+client credentials, token verification — runs against production Red Hat identity
+infrastructure on every single call, while the case payload stays synthetic. Nothing is
+pretended: the response itself distinguishes what was proven from what was shown.
 
 ### How the fixture tracks the official API
 
