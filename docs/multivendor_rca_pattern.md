@@ -16,12 +16,32 @@ vendor boundaries, using MCP as the interface to each vendor's evidence.
 Each participating party exposes its diagnostic capability as an MCP server returning
 **structured testimony** — facts from its own domain, never raw access to its systems:
 
-| Plane | Owned by | Example testimony |
-|-------|----------|-------------------|
-| **Service/RAN alerts** | RAN vendor | Cell state (3GPP TS 28.532 alarms, e.g. `lossOfRealTimeSynchronization`), clock-state history (LOCKED ↔ FREERUN oscillation) |
-| **Platform timing** | Platform vendor | PTP daemon logs: master offset spike, servo state transitions, timing CloudEvents |
-| **Protocol forensics** | RAN vendor | IEEE 1588 packet analysis: Sync/Follow_Up sequence gaps, `preciseOriginTimestamp` mismatches |
-| **Hardware** | Silicon/NIC vendor | Kernel and driver evidence: egress hardware-timestamp timeouts, descriptor-level status, error counters incrementing |
+Testimony is **typed JSON, not log prose**, and each answer carries its own fidelity marker
+(`"emulated": true` where a surface is synthesized) — the evidence declares what kind of evidence
+it is:
+
+| Plane | Owned by | Testimony (actual shapes) |
+|-------|----------|---------------------------|
+| **Service/RAN** | RAN vendor | `{"signal": "ran_sync_followup_anomaly", "findings": ["RX: Follow_Up of Sync X missing", "GM TX: Follow_Up X never sent", …]}` plus live element state (`{"phase": "Running", "ready": true, "restarts": 0}`) |
+| **Platform timing** | Platform vendor | `{"port_state": "FREERUN", "du_port_state": "UNCALIBRATED", "phc_offset_ns": -50000198, "clock_class": 6}` + a CloudEvent (`event.ptp.sync.state-change`) on every transition |
+| **Hardware/NIC** | Silicon vendor | `{"signal": "nic_firmware_suspect", "counters": {"tx_hwtstamp_timeouts": 1, "ptp_tx_carryover": 1, "ptp_ts_fifo_overflow": 1}, "delta_ms": 74.4}` |
+| **Cluster** | Platform vendor | Managed-cluster conditions — `Available`, `Joined`, `ClockSynced` — the cluster-level echo of the timing chain |
+
+The orchestrator's output is equally typed — an auditable decision object:
+
+```json
+{
+  "eventType": "RcaConcludedEvent",
+  "traceId": "tr-…",
+  "trigger": "PTP sync fault (cell unavailable, FREERUN<->LOCKED)",
+  "corroboration": "2/3",
+  "faultClass": "egress-hw-timestamp-miss",
+  "decision": "CONCLUDE"
+}
+```
+
+Below the corroboration bar the same object carries `"decision": "HOLD — a human signs"` — the
+refusal is itself an auditable event.
 
 The security properties come from the layers described elsewhere in this tutorial: every
 cross-boundary call passes the [MCP gateway](kuadrant_authorino_mcp_gateway.md) (authentication,
