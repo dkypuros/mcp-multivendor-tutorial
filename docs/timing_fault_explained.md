@@ -1,9 +1,10 @@
-# The Anatomy of a Timing Fault — a Plain-Prose Explainer
+# The Anatomy of a Timing Fault
 
-This page explains, without assuming any telco background, why the fault at the center of this
-tutorial's RCA scenario ([`multivendor_rca_pattern.md`](multivendor_rca_pattern.md)) is such a
-perfect teaching case for multivendor diagnosis. Nothing here is vendor-specific; every mechanism
-described is from public standards (IEEE 1588, 3GPP, O-RAN).
+The fault at the center of this tutorial's RCA scenario
+([`multivendor_rca_pattern.md`](multivendor_rca_pattern.md)) rewards a close look: it is a
+single hardware event whose evidence lands in four different organizations. This page walks the
+full causal chain, from the radio's timing requirement to the NIC counter that explains
+everything. Every mechanism described is from public standards (IEEE 1588, 3GPP, O-RAN).
 
 ## Why a radio network cares about nanoseconds
 
@@ -82,7 +83,7 @@ authenticated, rate-limited, and audited.
 
 ## The vocabulary, in one place
 
-| Term | Plain meaning |
+| Term | Meaning |
 |------|---------------|
 | **PTP / IEEE 1588** | The protocol that carries time across a network from one reference clock to many |
 | **Grandmaster (GM)** | The device that owns the reference time |

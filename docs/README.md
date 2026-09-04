@@ -70,7 +70,7 @@ catching exactly what the others cannot see.
 |----------|----------------|
 | [`kuadrant_authorino_mcp_gateway.md`](kuadrant_authorino_mcp_gateway.md) | Layer 1 in full: Gateway API + Kuadrant installation, `AuthPolicy`, `RateLimitPolicy`, and the OpenShift/Connectivity Link mapping |
 | [`multivendor_rca_pattern.md`](multivendor_rca_pattern.md) | What the layers exist *for*: orchestrated, governed root cause analysis across vendor evidence planes |
-| [`timing_fault_explained.md`](timing_fault_explained.md) | The on-ramp: the timing fault in plain prose — PTP, Follow_Up messages, LOCKED/FREERUN, and why no single vendor can diagnose it |
+| [`timing_fault_explained.md`](timing_fault_explained.md) | The timing fault end to end — PTP, Follow_Up messages, LOCKED/FREERUN, and why the evidence spans four organizations |
 | [`red_hat_mcp_server_landscape.md`](red_hat_mcp_server_landscape.md) | The vendor side: Red Hat's published MCP servers and API catalog — the concrete endpoints a multivendor integration connects to |
 | [`resources/`](resources/README.md) | Annotated public references: Red Hat's MCP gateway articles and docs, the upstream projects, and the catalogs |
 | `diagrams/` | The SVG architecture diagrams used across the tutorial |

@@ -9,11 +9,11 @@ Four views, four owners, one fault.
 This document describes a generic pattern for orchestrated, governed root cause analysis across
 vendor boundaries, using MCP as the interface to each vendor's evidence.
 
-**New to the timing scenario?** Read [`timing_fault_explained.md`](timing_fault_explained.md)
-first — it walks through the fault in plain prose, from why a radio network cares about
-nanoseconds to why the party experiencing the outage holds none of the root-cause evidence.
+For the full causal chain behind the scenario — from the radio's timing requirement down to the
+NIC counter that explains everything — see
+[`timing_fault_explained.md`](timing_fault_explained.md).
 
-Before the tables and JSON below, the idea in ordinary words: when something breaks across
+Before the tables and JSON below, the idea in brief: when something breaks across
 company boundaries, today's answer is a conference call — four vendors, four dashboards, days of
 finger-pointing, because each party can prove only that *its* piece behaved. This pattern
 replaces the conference call with a protocol. Each vendor wraps its diagnostic view in an MCP
